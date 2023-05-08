@@ -60,17 +60,8 @@ class BudgetEntry extends Model {
     }
   }
   
-  String get description {
-    try {
-      return _description!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get description {
+    return _description;
   }
   
   double get amount {
@@ -94,9 +85,9 @@ class BudgetEntry extends Model {
     return _updatedAt;
   }
   
-  const BudgetEntry._internal({required this.id, required title, required description, required amount, createdAt, updatedAt}): _title = title, _description = description, _amount = amount, _createdAt = createdAt, _updatedAt = updatedAt;
+  const BudgetEntry._internal({required this.id, required title, description, required amount, createdAt, updatedAt}): _title = title, _description = description, _amount = amount, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory BudgetEntry({String? id, required String title, required String description, required double amount}) {
+  factory BudgetEntry({String? id, required String title, String? description, required double amount}) {
     return BudgetEntry._internal(
       id: id == null ? UUID.getUUID() : id,
       title: title,
@@ -194,7 +185,7 @@ class BudgetEntry extends Model {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: BudgetEntry.DESCRIPTION,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
